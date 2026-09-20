@@ -8,7 +8,7 @@ public class Main {
         ParkingManager parkingManager = new ParkingManager(5);
 
         int choice = 0;
-        while (choice != 7) {
+        while (choice != 8) {
             displayMenu();
             try {
                 System.out.print("Enter your choice: ");
@@ -21,22 +21,25 @@ public class Main {
                         removeVehicle(scanner, parkingManager);
                         break;
                     case 3:
-                        parkingManager.displayParkingSlots();
+                        vehiclePayment(scanner, parkingManager);
                         break;
                     case 4:
-                        searchVehicle(scanner, parkingManager);
+                        parkingManager.displayParkingSlots();
                         break;
                     case 5:
-                        parkingManager.displayWaitingQueue();
+                        searchVehicle(scanner, parkingManager);
                         break;
                     case 6:
-                        parkingManager.displayStatistics();
+                        parkingManager.displayWaitingQueue();
                         break;
                     case 7:
-                        System.out.println("\nThank you for using " + "Smart Parking Management System.");
+                        parkingManager.displayStatistics();
+                        break;
+                    case 8:
+                        System.out.println("\nThank you for using Smart Parking Management System.");
                         break;
                     default:
-                        System.out.println("\nInvalid choice. " + "Please select 1-7.");
+                        System.out.println("\nInvalid choice. " + "Please select 1-8.");
                 }
 
             } catch (NumberFormatException e) {
@@ -127,5 +130,28 @@ public class Main {
             return;
         }
         parkingManager.searchVehicle(vehicleNumber);
+    }
+
+    // Calculate vehicle payment
+    private static void vehiclePayment(Scanner scanner, ParkingManager parkingManager) {
+        System.out.println("\n--------- VEHICLE PAYMENT ---------");
+        System.out.print("Enter parking hours: ");
+
+        try {
+            int hours = Integer.parseInt(scanner.nextLine());
+            if (hours <= 0) {
+                System.out.println("Parking hours must be greater than 0.");
+                return;
+            }
+            double payment = parkingManager.vehiclePayment(hours);
+
+            System.out.println("\n===== PAYMENT DETAILS =====");
+            System.out.println("Parking Hours : " + hours);
+            System.out.printf("Total Payment : Rs. %.2f%n", payment);
+            System.out.println("===========================");
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
+        }
     }
 }

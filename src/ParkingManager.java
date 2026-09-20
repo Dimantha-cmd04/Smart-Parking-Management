@@ -174,4 +174,16 @@ public class ParkingManager {
         System.out.println("Waiting Vehicles : " + waitingQueue.size());
         System.out.println("==================================");
     }
+    // Calculate vehicle parking payment
+    public double vehiclePayment(int hours) {
+        double firstHourRate = 100.00;
+        double additionalHourRate = 50.00;
+        if (hours <= 0) {
+            return 0.00;
+        }
+        if (hours == 1) {
+            return firstHourRate;
+        }
+        return firstHourRate + ((hours - 1) * additionalHourRate);
+    }
 }
